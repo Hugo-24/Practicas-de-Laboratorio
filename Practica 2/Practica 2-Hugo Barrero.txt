@@ -1,0 +1,1174 @@
+//Problemas de la practica 2 Hechos por Hugo Esteban Barrero Garcia
+//Problema 1 https://www.tinkercad.com/things/k7DeisWRZXy-practica-2-p1
+unsigned long int plata;
+
+void setup() {
+    Serial.begin(9600);
+    Serial.println("Ingrese una cantidad de dinero:");
+}
+
+void loop() {
+while (Serial.available() == 0) {
+    }
+    plata = Serial.parseInt();
+    Serial.println(plata);
+    if (plata >= 50000) {
+        Serial.print("50000: ");
+        Serial.println(plata / 50000);
+        plata %= 50000;
+    } else {
+        Serial.println("50000: 0");
+    }
+
+    if (plata >= 20000) {
+        Serial.print("20000: ");
+        Serial.println(plata / 20000);
+        plata %= 20000;
+    } else {
+        Serial.println("20000: 0");
+    }
+
+    if (plata >= 10000) {
+        Serial.print("10000: ");
+        Serial.println(plata / 10000);
+        plata %= 10000;
+    } else {
+        Serial.println("10000: 0");
+    }
+
+    if (plata >= 5000) {
+        Serial.print("5000: ");
+        Serial.println(plata / 5000);
+        plata %= 5000;
+    } else {
+        Serial.println("5000: 0");
+    }
+
+    if (plata >= 2000) {
+        Serial.print("2000: ");
+        Serial.println(plata / 2000);
+        plata %= 2000;
+    } else {
+        Serial.println("2000: 0");
+    }
+
+    if (plata >= 1000) {
+        Serial.print("1000: ");
+        Serial.println(plata / 1000);
+        plata %= 1000;
+    } else {
+        Serial.println("1000: 0");
+    }
+
+    if (plata >= 500) {
+        Serial.print("500: ");
+        Serial.println(plata / 500);
+        plata %= 500;
+    } else {
+        Serial.println("500: 0");
+    }
+
+    if (plata >= 200) {
+        Serial.print("200: ");
+        Serial.println(plata / 200);
+        plata %= 200;
+    } else {
+        Serial.println("200: 0");
+    }
+
+    if (plata >= 100) {
+        Serial.print("100: ");
+        Serial.println(plata / 100);
+        plata %= 100;
+    } else {
+        Serial.println("100: 0");
+    }
+
+    if (plata >= 50) {
+        Serial.print("50: ");
+        Serial.println(plata / 50);
+        plata %= 50;
+    } else {
+        Serial.println("50: 0");
+    }
+
+    if (plata > 0) {
+        Serial.print("Faltante: ");
+        Serial.println(plata);
+    }
+}
+
+//Problema 2
+#include <iostream>
+#include <cstdlib> // Para rand() y srand()
+#include <ctime>   // Para time()
+
+using namespace std;
+
+int main() {
+    const int size = 200;
+    char arreglo[size];
+    int conteo[26] = {0}; // Para contar cuántas veces aparece cada letra
+
+    // Semilla para la aleatoriedad basada en el tiempo
+    srand(time(0)); // Esto asegura que el generador de números aleatorios cambie con el tiempo
+
+    // Generar las letras aleatorias
+    for (int i = 0; i < size; i++) {
+        arreglo[i] = 'A' + (rand() % 26); // Número aleatorio entre 0 y 25 → letra A-Z
+        cout << arreglo[i];
+        int posicion = arreglo[i] - 'A'; // A es 0, B es 1, ..., Z es 25
+        conteo[posicion]++;
+    }
+    cout << endl << endl;
+
+    // Mostrar el conteo
+    for (int i = 0; i < 26; i++) {
+        if (conteo[i] > 0) {
+            cout << (char)('A' + i) << ": " << conteo[i] << endl;
+        }
+    }
+
+    return 0;
+}
+
+//Problema 3
+#include <iostream>
+using namespace std;
+
+// Función que compara dos cadenas de caracteres
+bool sonIguales(const char* cadena1, const char* cadena2);
+
+int main() {
+    char cadena1[20];
+    char cadena2[20];
+
+    cout << "Ingrese la primera cadena: ";
+    cin.getline(cadena1, 20);
+    //cin.getline() permite leer una línea completa de texto (incluyendo espacios)hasta encontrar un salto de línea (\n), lo almacena en un arreglo de caracteres (char[]).
+    cout << "Ingrese la segunda cadena: ";
+    cin.getline(cadena2,20);
+
+    if (sonIguales(cadena1, cadena2)) {
+        cout << "Las cadenas son iguales." << endl;
+    } else {
+        cout << "Las cadenas son diferentes." << endl;
+    }
+
+    return 0;
+}
+
+bool sonIguales(const char* cadena1, const char* cadena2) {
+    int i = 0;
+
+    while (cadena1[i] != '\0' && cadena2[i] != '\0') {
+        if (cadena1[i] != cadena2[i]) {
+            return false; // Caracteres diferentes
+        }
+        i++;
+    }
+    // Si ambas terminaron al mismo tiempo, son iguales
+    return cadena1[i] == '\0' && cadena2[i] == '\0';
+}
+
+//Problema 4
+#include <iostream>
+using namespace std;
+
+// Convierte una cadena de caracteres numéricos a un entero
+int convertirCadenaANumero(const char* cadena);
+
+int main() {
+    char entrada[20];
+    cout << "Ingresa una cadena numerica: ";
+    cin >> entrada;
+
+    int numero = convertirCadenaANumero(entrada);
+
+    if (numero != -1) {
+        cout << "Numero convertido: " << numero << endl;
+    } else {
+        cout << "La cadena contiene caracteres no numericos." << endl;
+    }
+
+    return 0;
+}
+
+int convertirCadenaANumero(const char* cadena) {
+    int resultado = 0;
+    for (int i = 0; cadena[i] != '\0'; i++) {
+        // Verifica que cada carácter sea un dígito
+        if (cadena[i] >= '0' && cadena[i] <= '9') {
+            resultado = resultado * 10 + (cadena[i] - '0');
+        } else {
+            // Si hay un carácter no numérico, retorna -1 (o puedes lanzar error)
+            return -1;
+        }
+    }
+    return resultado;
+}
+
+//Problema 5
+#include <iostream>
+using namespace std;
+
+// Convierte un número entero a cadena de caracteres
+void convertirNumeroACadena(int numero, char* cadena);
+
+int main() {
+    int numero;
+    char resultado[20];
+
+    cout << "Ingresa un numero entero: ";
+    cin >> numero;
+
+    convertirNumeroACadena(numero, resultado);
+
+    cout << "Cadena convertida: " << resultado << endl;
+
+    return 0;
+}
+
+void convertirNumeroACadena(int numero, char* cadena) {
+    int i = 0;            // Índice para recorrer la cadena de caracteres
+    bool negativo = false; // Variable para verificar si el número es negativo
+    
+    // Caso especial: si el número es 0
+    if (numero == 0) {
+        cadena[i++] = '0';  // Asigna '0' a la cadena
+        cadena[i] = '\0';   // Agrega el carácter nulo al final
+        return;             // Salir de la función ya que no hay más procesamiento necesario
+    }
+    
+    // Si el número es negativo, se marca y se convierte en positivo
+    if (numero < 0) {
+        negativo = true;    // Marca que el número es negativo
+        numero = -numero;  // Convierte el número a positivo
+    }
+    
+    // Convertir el número al revés
+    while (numero > 0) {
+        // Extrae el último dígito del número y lo convierte en un carácter
+        cadena[i++] = (numero % 10) + '0'; // Agrega el dígito a la cadena
+        numero /= 10;  // Elimina el último dígito del número
+    }
+    
+    // Si el número era negativo, agrega el signo '-' al final de la cadena
+    if (negativo == true) {
+        cadena[i++] = '-'; // Agrega el signo negativo
+    }
+    
+    // Coloca el carácter nulo al final para finalizar la cadena
+    cadena[i] = '\0';
+    
+    // Invertir la cadena para obtener el número en el orden correcto
+    for (int j = 0, k = i - 1; j < k; j++, k--) {
+        char temp = cadena[j];  // Intercambia los caracteres de las posiciones j y k
+        cadena[j] = cadena[k];
+        cadena[k] = temp;
+    }
+}
+//Problema 6 https://www.tinkercad.com/things/e5QAgiczudQ-practica-2-p6
+void setup() {
+    Serial.begin(9600);  // Iniciar la comunicación serial
+    Serial.println("Ingresa una cadena de texto:");
+}
+
+void loop() {
+    if (Serial.available() > 0) {
+        char palabra[50] = {0};  
+        int indice = 0;
+        delay(100);  
+        while (Serial.available() > 0) {
+            char c = Serial.read();
+            if (c == '\n') {  
+                palabra[indice] = '\0';  
+                break;
+            }
+            if (indice < 49) {  
+                palabra[indice++] = c;
+            }
+        }
+        palabra[indice] = '\0';
+        Serial.print("Original: ");
+        Serial.println(palabra);
+        for (int i = 0; palabra[i] != '\0'; i++) {
+            if (palabra[i] >= 'a' && palabra[i] <= 'z') {
+                palabra[i] = palabra[i] - (32);  
+            }
+        }
+        Serial.print("En mayusculas: ");
+        Serial.println(palabra);
+        Serial.println("Ingresa otra cadena:");
+    }
+}
+
+//Problema 7
+#include <iostream>
+using namespace std;
+
+// Función para eliminar caracteres repetidos de una cadena
+void eliminarRepetidos(char* cadena);
+
+int main() {
+    char cadena[20];
+
+    // Solicitar la cadena al usuario
+    cout << "Ingresa una cadena: ";
+    cin >> cadena;
+
+    cout << "Original: " << cadena << endl;
+
+    eliminarRepetidos(cadena); // Eliminar caracteres repetidos
+
+    cout << "Sin repetidos: " << cadena << endl;
+
+    return 0;
+}
+
+void eliminarRepetidos(char* cadena) {
+    bool encontrado[256] = {false}; // Array para verificar si un carácter ya ha sido encontrado. El arreglo tiene 256 elementos, uno por cada posible valor ASCII.
+    int i = 0, j = 0;
+    //i es para recorrer la cadena ingresada y j para la cadena sin repetir (solo aumenta cuando se encuentra un nuevo char)
+    // Recorremos cada carácter de la cadena
+    while (cadena[i] != '\0') {
+        // Si el carácter no ha sido encontrado antes, lo copiamos a la posición j
+        if (encontrado[cadena[i]] == false) { // C++ trata char como un número entre 0 y 255, que se puede usar como índice para un arreglo.
+            encontrado[cadena[i]] = true;  // Marcamos el carácter como encontrado
+            cadena[j++] = cadena[i];       // Copiamos el carácter a la nueva posición
+        }
+        i++;
+    }
+
+    // Colocamos el carácter nulo al final de la cadena resultante
+    cadena[j] = '\0';
+}
+
+//Problema 8
+#include <iostream>
+using namespace std;
+
+int main() {
+    char original[20];      // Cadena original ingresada
+    char soloTexto[20];     // Cadena sin números
+    char soloNumeros[20];   // Cadena solo con números
+
+    cout << "Ingresa una cadena: ";
+    cin >> original;
+
+    int j = 0, k = 0;
+
+    // Recorrer la cadena original
+    for (int i = 0; original[i] != '\0'; i++) {
+        if (original[i] >= '0' && original[i] <= '9') {
+            // Si es un dígito, lo añadimos a la cadena de números
+            soloNumeros[k++] = original[i];
+        } else {
+            // Si no es dígito, lo añadimos a la cadena de texto
+            soloTexto[j++] = original[i];
+        }
+    }
+
+    // Finalizar las cadenas con '\0'
+    soloTexto[j] = '\0';
+    soloNumeros[k] = '\0';
+
+    // Mostrar resultados
+    cout << "Original: " << original << endl;
+    cout << "Texto: " << soloTexto << endl;
+    cout << "Numero: " << soloNumeros << endl;
+
+    return 0;
+}
+
+//Problema 9
+#include <iostream>
+#include <cstring> // Para strlen
+using namespace std;
+
+int main() {
+    int n;
+    char entrada[20];
+
+    cout << "Ingresa el valor de n: ";
+    cin >> n;
+
+    cout << "Ingresa una cadena numerica: ";
+    cin >> entrada;
+
+    int longitud = strlen(entrada); // Longitud de la cadena ingresada
+
+    // Calcular cuántos ceros hacen falta al principio para que la longitud sea múltiplo de n
+    // Si el residuo es 0, no se agregan ceros. Si no, se agregan (n - residuo).
+    int residuo = longitud % n;
+    int cerosNecesarios = (residuo == 0) ? 0 : (n - residuo);
+    // Explicación del operador ternario:
+    // condición ? valor_verdadero : valor_falso
+    // Es igual a:
+    // if (residuo == 0)
+    //     cerosNecesarios = 0;
+    // else
+    //     cerosNecesarios = n - residuo;
+
+    int totalDigitos = longitud + cerosNecesarios;
+
+    // Crear nueva cadena con los ceros agregados al principio
+    char cadena[30]; // Espacio suficiente
+    for (int i = 0; i < cerosNecesarios; i++) {
+        cadena[i] = '0'; // Agrega ceros al inicio
+    }
+    for (int i = 0; i < longitud; i++) {
+        cadena[cerosNecesarios + i] = entrada[i]; // Copia la cadena original
+    }
+    cadena[totalDigitos] = '\0'; // Marca el final de la cadena
+
+    int suma = 0;
+
+    // Recorrer la cadena en grupos de n dígitos
+    for (int i = 0; i < totalDigitos; i += n) {
+        int numero = 0;
+        // Convertir el grupo de n caracteres en un número
+        for (int j = 0; j < n; j++) {
+            if (cadena[i + j] < '0' || cadena[i + j] > '9') {
+                cout << "Error: la cadena contiene caracteres no numericos." << endl;
+                return 1;
+            }
+            // cadena[i + j] - '0' convierte el carácter numérico a valor entero.
+            // Por ejemplo, si cadena[i + j] = '5', entonces '5' - '0' = 5 ('53' - '48' = 0).
+            // Esto es posible porque los caracteres están representados por códigos ASCII consecutivos.
+            numero = numero * 10 + (cadena[i + j] - '0'); // Construye el número cifra por cifra
+        }
+        suma += numero; // Acumular la suma
+    }
+
+    // Mostrar resultados
+    cout << "Original: " << entrada << endl;
+    cout << "Suma: " << suma << endl;
+
+    return 0;
+}
+
+//Problema 10 https://www.tinkercad.com/things/7ycxEOXMnAZ-practica-2-p10
+String romano = "";  // Variable para almacenar el número romano ingresado
+int arabigo = 0;     // Variable para almacenar el resultado en formato arábigo
+
+// Función que convierte un carácter romano en su valor arábigo
+int valorRomano(char c) {
+  switch (c) {
+    case 'M': return 1000;  // 'M' es 1000
+    case 'D': return 500;   // 'D' es 500
+    case 'C': return 100;   // 'C' es 100
+    case 'L': return 50;    // 'L' es 50
+    case 'X': return 10;    // 'X' es 10
+    case 'V': return 5;     // 'V' es 5
+    case 'I': return 1;     // 'I' es 1
+    default: return 0;      // Si el carácter no es válido, retorna 0
+  }
+}
+
+void setup() {
+  Serial.begin(9600);   // Inicializa la comunicación serial a 9600 baudios
+  while (!Serial) {}    // Espera hasta que el monitor serial esté listo
+  Serial.println("Ingresa un numero romano (en mayusculas):");  // Solicita al usuario que ingrese un número romano
+}
+
+void loop() {
+  if (Serial.available() > 0) {  // Verifica si hay datos disponibles en el monitor serial
+    romano = Serial.readStringUntil('\n');  // Lee la entrada del usuario hasta el salto de línea
+    romano.trim();  // Elimina los espacios en blanco al principio y al final de la cadena
+
+    arabigo = 0;  // Reinicia el valor del número arábigo
+
+    int longitud = romano.length();  // Obtiene la longitud de la cadena ingresada
+
+    // Recorre cada carácter de la cadena romana
+    for (int i = 0; i < longitud; i++) {
+      // Obtiene el valor arábigo del carácter romano actual
+      int actual = valorRomano(romano.charAt(i));  
+      // Obtiene el valor del siguiente carácter (o 0 si es el último)
+      int siguiente = (i + 1 < longitud) ? valorRomano(romano.charAt(i + 1)) : 0;  
+
+      // Si el valor actual es menor que el siguiente, se resta del total
+      if (actual < siguiente) {
+        arabigo -= actual;  
+      } else {  // Si no, se suma al total
+        arabigo += actual;  
+      }
+    }
+
+    // Imprime el número romano ingresado y su equivalente arábigo
+    Serial.print("El numero ingresado fue: ");
+    Serial.println(romano);
+    Serial.print("Que corresponde a: ");
+    Serial.println(arabigo);
+    
+    // Solicita otro número romano
+    Serial.println("\nIngresa otro numero romano:");
+    delay(500);  // Espera medio segundo antes de continuar
+  }
+}
+
+//Problema 11
+#include <iostream>
+using namespace std;
+
+// Constantes que definen el tamaño de la sala de cine
+const int FILAS = 15;
+const int COLUMNAS = 20;
+
+// Matriz que representa los asientos de la sala
+// Cada asiento puede estar disponible '-' o reservado '+'
+char sala[FILAS][COLUMNAS];
+
+// Declaración de funciones
+void inicializarSala();       // Inicializa todos los asientos como disponibles
+void mostrarSala();           // Muestra la sala con el estado de cada asiento
+void gestionarAsiento();      // Permite al usuario reservar o cancelar un asiento
+int filaALetra(char letra);   // Convierte una letra (A-O) en el índice correspondiente de la fila
+
+int main() {
+    inicializarSala(); // Se marca toda la sala como vacía al inicio
+
+    int opcion;
+    // Bucle principal que permite al usuario elegir una opción del menú
+    do {
+        cout << "\n1. Ver sala\n2. Reservar/Cancelar asiento\n3. Salir\nOpcion: ";
+        cin >> opcion;
+
+        switch (opcion) {
+        case 1:
+            mostrarSala(); // Muestra la sala actual
+            break;
+        case 2:
+            gestionarAsiento(); // Permite reservar o cancelar un asiento
+            break;
+        case 3:
+            cout << "Saliendo...\n"; // Finaliza el programa
+            break;
+        default:
+            cout << "Opcion invalida.\n"; // Controla opciones no válidas
+        }
+    } while (opcion != 3); // El programa se repite hasta que se elija salir
+
+    return 0;
+}
+
+// Inicializa la sala con todos los asientos marcados como disponibles '-'
+void inicializarSala() {
+    for (int i = 0; i < FILAS; i++) {
+        for (int j = 0; j < COLUMNAS; j++) {
+            sala[i][j] = '-';
+        }
+    }
+}
+
+// Muestra el estado actual de la sala
+// Filas se muestran con letras A-O y columnas del 1 al 20
+void mostrarSala() {
+    cout << "  ";
+    for (int j = 0; j < COLUMNAS; j++) {
+        if (j < 9) {
+            cout << j + 1 << "  ";  // Alineación para números de un solo dígito
+        } else {
+            cout << j + 1 << " ";   // Alineación para números de dos dígitos
+        }
+    }
+    cout << "\n";
+
+    for (int i = 0; i < FILAS; i++) {
+        cout << char('A' + i) << " "; // Muestra la letra de la fila
+        for (int j = 0; j < COLUMNAS; j++) {
+            cout << sala[i][j] << "  "; // Muestra el estado del asiento
+        }
+        cout << "\n";
+    }
+}
+
+// Convierte una letra (A-O o a-o) en el índice correspondiente de la fila
+// Devuelve -1 si la letra no es válida
+int filaALetra(char letra) {
+    if (letra >= 'A' && letra <= 'O') {
+        return letra - 'A';
+    } else if (letra >= 'a' && letra <= 'o') {
+        return letra - 'a';
+    } else {
+        return -1;
+    }
+}
+
+// Permite reservar ('+') o cancelar ('-') un asiento
+void gestionarAsiento() {
+    char letra;     // Letra de la fila (A-O)
+    int numero;     // Número de la columna (1-20)
+    char accion;    // Acción: '+' para reservar, '-' para cancelar
+
+    cout << "Ingrese la fila (A-O): ";
+    cin >> letra;
+
+    // Verifica si la letra es válida
+    if (!((letra >= 'A' && letra <= 'O') || (letra >= 'a' && letra <= 'o'))) {
+        cout << "Fila invalida. Debe ser una letra entre A y O.\n";
+        return;
+    }
+
+    cout << "Ingrese el numero de asiento (1-20): ";
+    cin >> numero;
+
+    // Valida que la entrada sea un número entero válido
+    // Verifica si la entrada falló, por ejemplo si se ingresó una letra o símbolo en vez de un número
+    if (cin.fail()) {
+        cin.clear();               // Limpia el estado de error del stream (deja de estar en modo de error)
+        cin.ignore(1000, '\n');    // Descarta hasta 1000 caracteres o hasta encontrar un salto de línea, lo que ocurra primero.
+            // Esto limpia el búfer de entrada, eliminando el dato inválido que causó el error.
+        cout << "Entrada invalida. Debe ingresar un numero entero entre 1 y 20.\n";
+        return;
+    }
+
+    // Valida que el número esté dentro del rango permitido
+    if (numero < 1 || numero > 20) {
+        cout << "Numero de asiento invalido. Debe estar entre 1 y 20.\n";
+        return;
+    }
+
+    // Convierte la letra en índice de fila y ajusta la columna
+    int fila = filaALetra(letra);
+    int columna = numero - 1;
+
+    cout << "Desea reservar (+) o cancelar (-) el asiento? ";
+    cin >> accion;
+
+    // Gestiona la acción elegida
+    if (accion == '+') {
+        if (sala[fila][columna] == '+') {
+            cout << "Asiento ya reservado.\n";
+        } else {
+            sala[fila][columna] = '+';
+            cout << "Reserva exitosa.\n";
+        }
+    } else if (accion == '-') {
+        if (sala[fila][columna] == '-') {
+            cout << "Asiento ya disponible.\n";
+        } else {
+            sala[fila][columna] = '-';
+            cout << "Cancelacion exitosa.\n";
+        }
+    } else {
+        cout << "Accion invalida. Use '+' para reservar o '-' para cancelar.\n";
+    }
+}
+
+//Problema 12
+#include <iostream>
+using namespace std;
+
+const int N = 3;
+const int MIN_VALOR = -9;
+const int MAX_VALOR = 9;
+
+int matriz[N][N];
+bool usado[MAX_VALOR - MIN_VALOR + 1] = { false };
+
+// Declaraciones
+void imprimirMatriz();
+bool esCuadradoMagico();
+bool yaFueUsado(int valor);
+void marcarUsado(int valor);
+
+int main() {
+    // Solicita al usuario que ingrese los números separados por espacios
+    cout << "Ingresa los 9 numeros del cuadrado magico (del -9 al 9, sin repetir y sin incluir el 0, separados por espacios):\n";
+
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++) {
+            int numero;
+            cin >> numero;
+
+            // Verifica si la entrada es válida (no una letra u otro símbolo)
+            if (cin.fail()) {
+                cin.clear();               // Limpia el error de cin
+                cin.ignore(1000, '\n');    // Descarta caracteres sobrantes
+                cout << "Entrada invalida. Debe ingresar un numero entero.\n";
+                return 0;
+            }
+
+            // Verifica si el número está dentro del rango permitido y no es 0
+            if (numero == 0 || numero < MIN_VALOR || numero > MAX_VALOR) {
+                cout << "Numero fuera de rango. Solo se permiten numeros del -9 al 9, sin incluir el 0.\n";
+                return 0;
+            }
+
+            // Verifica que el número no esté repetido
+            if (yaFueUsado(numero)) {
+                cout << "Numero repetido. No es un cuadrado magico.\n";
+                return 0;
+            }
+
+            marcarUsado(numero);
+            matriz[i][j] = numero;
+        }
+    }
+
+    imprimirMatriz();
+
+    // Verifica si la matriz es un cuadrado mágico
+    if (esCuadradoMagico()) {
+        cout << "Es un cuadrado magico.\n";
+    } else {
+        cout << "No es un cuadrado magico.\n";
+    }
+
+    return 0;
+}
+
+// Imprime la matriz ingresada
+void imprimirMatriz() {
+    cout << "Matriz ingresada:\n";
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++) {
+            cout << matriz[i][j] << "\t"; // Imprime cada número seguido de una tabulación
+        }
+        cout << "\n";
+    }
+}
+
+// Verifica si la matriz es un cuadrado mágico
+bool esCuadradoMagico() {
+    int sumaRef = 0;
+    for (int j = 0; j < N; j++) sumaRef += matriz[0][j]; // Suma de la primera fila como referencia
+
+    // Verifica la suma de todas las filas
+    for (int i = 0; i < N; i++) {
+        int sumaFila = 0;
+        for (int j = 0; j < N; j++) sumaFila += matriz[i][j];
+        if (sumaFila != sumaRef){
+            return false;
+        }
+    }
+
+    // Verifica la suma de todas las columnas
+    for (int j = 0; j < N; j++) {
+        int sumaColumna = 0;
+        for (int i = 0; i < N; i++) sumaColumna += matriz[i][j];
+        if (sumaColumna != sumaRef){
+            return false;
+        }
+    }
+
+    // Verifica la diagonal principal
+    int sumaDiag1 = 0;
+    for (int i = 0; i < N; i++) sumaDiag1 += matriz[i][i];
+    if (sumaDiag1 != sumaRef){
+        return false;
+    }
+
+    // Verifica la diagonal secundaria
+    int sumaDiag2 = 0;
+    for (int i = 0; i < N; i++) sumaDiag2 += matriz[i][N - 1 - i];
+    if (sumaDiag2 != sumaRef){
+        return false;
+    }
+
+    return true; // Si todas las verificaciones pasaron, es un cuadrado mágico
+}
+
+// Marca un valor como ya usado
+void marcarUsado(int valor) {
+    int indice = valor - MIN_VALOR;
+    usado[indice] = true;
+}
+
+// Verifica si un valor ya fue usado previamente
+bool yaFueUsado(int valor) {
+    int indice = valor - MIN_VALOR;
+    return usado[indice];
+}
+
+//Problema 13
+#include <iostream>
+using namespace std;
+
+const int FILAS = 6;  // Número de filas en la matriz
+const int COLUMNAS = 8;  // Número de columnas en la matriz
+
+// Prototipo de la función que contará las estrellas
+int contarEstrellas(int (*matriz)[COLUMNAS]);
+
+int main() {
+    // Inicialización de la matriz de la imagen con valores de luz en cada celda
+    int imagen[FILAS][COLUMNAS] = {
+        {0, 3, 4, 0, 0, 0, 6, 8},
+        {5, 13, 6, 0, 0, 0, 2, 3},
+        {2, 6, 2, 7, 3, 0, 10, 0},
+        {0, 0, 4, 15, 4, 1, 6, 0},
+        {0, 0, 7, 12, 6, 9, 10, 4},
+        {5, 0, 6, 10, 6, 4, 8, 0}
+    };
+
+    // Llamada a la función que cuenta las estrellas en la matriz
+    int totalEstrellas = contarEstrellas(imagen);
+    cout << "Cantidad de estrellas encontradas: " << totalEstrellas << endl;
+
+    return 0;
+}
+
+// Función que cuenta las estrellas en la matriz
+int contarEstrellas(int (*matriz)[COLUMNAS]) {
+    int contador = 0;  // Variable para contar el número de estrellas
+
+    // Recorre la matriz, ignorando los bordes (por eso comienza en 1 y termina en FILAS-1 y COLUMNAS-1)
+    for (int i = 1; i < FILAS - 1; i++) {
+        for (int j = 1; j < COLUMNAS - 1; j++) {
+            // Calcula la suma de la celda actual y sus 4 vecinos
+            int suma = matriz[i][j] +
+                       matriz[i][j - 1] +  // vecino a la izquierda
+                       matriz[i][j + 1] +  // vecino a la derecha
+                       matriz[i - 1][j] +  // vecino arriba
+                       matriz[i + 1][j];   // vecino abajo
+
+            // Calcula el promedio de los 5 valores (celda y sus 4 vecinos)
+            double promedio = suma / 5.0;
+
+            // Si el promedio es mayor que 6, se considera una estrella
+            if (promedio > 6) {
+                contador++;  // Incrementa el contador de estrellas
+            }
+        }
+    }
+
+    return contador;  // Devuelve la cantidad de estrellas encontradas
+}
+//Problema 14
+#include <iostream>
+using namespace std;
+
+const int N = 5;  // Definición de tamaño de la matriz (5x5)
+
+// Prototipos de funciones
+void llenarMatriz(int matriz[N][N]);  // Función para llenar la matriz con números del 1 al 25
+void imprimirMatriz(int matriz[N][N]);  // Función para imprimir la matriz
+void rotar90(int original[N][N], int rotada[N][N]);  // Función para rotar la matriz 90°
+void rotar180(int original[N][N], int rotada[N][N]);  // Función para rotar la matriz 180°
+void rotar270(int original[N][N], int rotada[N][N]);  // Función para rotar la matriz 270°
+
+int main() {
+    int matriz[N][N];  // Declaración de la matriz original
+    int rotada90[N][N], rotada180[N][N], rotada270[N][N];  // Matrices para las versiones rotadas
+
+    // Llenado de la matriz con números del 1 al 25
+    llenarMatriz(matriz);
+
+    // Imprime la matriz original
+    cout << "Matriz original:\n";
+    imprimirMatriz(matriz);
+
+    // Rota la matriz 90 grados y la imprime
+    rotar90(matriz, rotada90);
+    cout << "\nMatriz rotada 90 grados:\n";
+    imprimirMatriz(rotada90);
+
+    // Rota la matriz 180 grados y la imprime
+    rotar180(matriz, rotada180);
+    cout << "\nMatriz rotada 180 grados:\n";
+    imprimirMatriz(rotada180);
+
+    // Rota la matriz 270 grados y la imprime
+    rotar270(matriz, rotada270);
+    cout << "\nMatriz rotada 270 grados:\n";
+    imprimirMatriz(rotada270);
+
+    return 0;
+}
+
+// Función para llenar la matriz con números del 1 al 25
+void llenarMatriz(int matriz[N][N]) {
+    int valor = 1;  // Comienza el llenado desde el número 1
+    for (int i = 0; i < N; i++)  // Recorre las filas
+        for (int j = 0; j < N; j++)  // Recorre las columnas
+            matriz[i][j] = valor++;  // Asigna el valor y luego lo incrementa
+}
+
+// Función para imprimir una matriz N x N
+void imprimirMatriz(int matriz[N][N]) {
+    for (int i = 0; i < N; i++) {  // Recorre las filas
+        for (int j = 0; j < N; j++)  // Recorre las columnas
+            cout << matriz[i][j] << "\t";  // Imprime el valor seguido de una tabulación
+        cout << "\n";  // Salto de línea después de cada fila
+    }
+}
+
+// Función para rotar la matriz 90 grados a la derecha
+void rotar90(int original[N][N], int rotada[N][N]) {
+    for (int i = 0; i < N; i++)  // Recorre las filas
+        for (int j = 0; j < N; j++)  // Recorre las columnas
+            rotada[j][N - 1 - i] = original[i][j];  // Asigna el valor rotado en la nueva matriz
+}
+
+// Función para rotar la matriz 180 grados
+void rotar180(int original[N][N], int rotada[N][N]) {
+    for (int i = 0; i < N; i++)  // Recorre las filas
+        for (int j = 0; j < N; j++)  // Recorre las columnas
+            rotada[N - 1 - i][N - 1 - j] = original[i][j];  // Asigna el valor rotado en la nueva matriz
+}
+
+// Función para rotar la matriz 270 grados a la izquierda
+void rotar270(int original[N][N], int rotada[N][N]) {
+    for (int i = 0; i < N; i++)  // Recorre las filas
+        for (int j = 0; j < N; j++)  // Recorre las columnas
+            rotada[N - 1 - j][i] = original[i][j];  // Asigna el valor rotado en la nueva matriz
+}
+//Problema 15
+#include <iostream>
+using namespace std;
+
+// Función que calcula la intersección entre dos rectángulos
+// Cada rectángulo se representa con un arreglo de 4 enteros: {x, y, ancho, alto}
+// La función modifica por referencia el arreglo 'interseccion' con los valores del rectángulo resultante
+// Declaracion de la funcion
+void calcularInterseccion(int A[4], int B[4], int interseccion[4]);
+
+int main() {
+    // Definimos dos rectangulos A y B, cada uno como un arreglo de 4 enteros: {x, y, ancho, alto}
+    int A[4] = {0, 0, 8, 4};
+    int B[4] = {5, 2, 6, 7};
+    int C[4]; // Aqui se almacenara el rectangulo de interseccion
+
+    calcularInterseccion(A, B, C);
+
+    // Imprimimos el rectangulo resultante de la interseccion
+    cout << "\nRectangulo interseccion: {";
+    for (int i = 0; i < 4; i++) {
+        cout << C[i];
+        if (i < 3) cout << ", ";
+    }
+    cout << "}\n";
+
+    return 0;
+}
+
+// Definicion de la funcion
+void calcularInterseccion(int A[4], int B[4], int interseccion[4]) {
+    // Coordenadas del rectangulo A
+    int x1_A = A[0];
+    int y1_A = A[1];
+    int x2_A = x1_A + A[2]; // x derecho
+    int y2_A = y1_A + A[3]; // y inferior
+
+    // Coordenadas del rectangulo B
+    int x1_B = B[0];
+    int y1_B = B[1];
+    int x2_B = x1_B + B[2];
+    int y2_B = y1_B + B[3];
+
+    // Coordenadas del rectangulo interseccion
+    int x1_I = max(x1_A, x1_B); // El borde izquierdo mas a la derecha
+    int y1_I = max(y1_A, y1_B); // El borde superior mas abajo
+    int x2_I = min(x2_A, x2_B); // El borde derecho mas a la izquierda
+    int y2_I = min(y2_A, y2_B); // El borde inferior mas arriba
+
+    // Verificamos si hay una interseccion valida
+    if (x1_I < x2_I && y1_I < y2_I) {
+        interseccion[0] = x1_I;
+        interseccion[1] = y1_I;
+        interseccion[2] = x2_I - x1_I; // ancho
+        interseccion[3] = y2_I - y1_I; // alto
+    } else {
+        // No hay interseccion: todos los valores en cero
+        interseccion[0] = interseccion[1] = interseccion[2] = interseccion[3] = 0;
+    }
+}
+
+//Problema 16
+#include <iostream>
+using namespace std;
+
+// Declaracion de funcion
+long long contarCaminos(int n);
+long long factorial(int num);
+
+int main() {
+    int n;
+    cout << "Ingrese el valor de n: ";
+    cin >> n;
+
+    // Validacion: si se ingresa un caracter no numerico
+    if (cin.fail()) {
+        cin.clear(); // Limpia el estado de error de cin
+        cin.ignore(1000, '\n'); // Descarta el resto de la entrada
+        cout << "Entrada invalida. Debe ingresar un numero entero.\n";
+        return 0;
+    }
+
+    // Validacion: si el numero es negativo
+    if (n < 0) {
+        cout << "El numero debe ser positivo.\n";
+        return 0;
+    }
+
+    // Llamamos a la funcion contarCaminos para obtener el resultado
+    long long caminos = contarCaminos(n);
+    cout << "Para una malla de " << n << "x" << n << " puntos hay " << caminos << " caminos.\n";
+
+    return 0;
+}
+
+// Devuelve el numero de caminos posibles en una malla nxn usando combinatoria
+// Se usa la formula de combinatoria: C(2n, n) = (2n)! / (n! * n!)
+// Se requiere usar long long para evitar desbordamientos en los factoriales grandes
+// Aun asi, en entornos como Qt, esta version solo funciona correctamente hasta n = 10
+long long contarCaminos(int n) {
+    return factorial(2 * n) / (factorial(n) * factorial(n));
+}
+
+// Calcula el factorial de un numero usando tipo long long
+// Se usa long long ya que los factoriales crecen muy rapido y exceden facilmente el rango de int
+long long factorial(int num) {
+    long long resultado = 1;
+    for (int i = 2; i <= num; i++) {
+        resultado *= i;
+    }
+    return resultado;
+}
+// Problema 17: Numeros Amigables en Arduino. https://www.tinkercad.com/things/4giJjXA4LZ9-practica-2-p17
+// El usuario ingresa un numero por el monitor serial
+// El programa encuentra la suma de todos los numeros amigables menores o iguales a ese numero
+// Ejemplo: si se ingresa 284, se detecta el par 220 y 284, y se suma 220 + 284 = 504
+
+// Funcion que retorna la suma de los divisores propios de n (excluye n)
+int sumaDivisores(int n) {
+  int suma = 0;
+  for (int i = 1; i <= n / 2; i++) {
+    if (n % i == 0) {
+      suma += i;
+    }
+  }
+  return suma;
+}
+
+// Funcion que verifica si dos numeros son amigables
+bool sonAmigables(int a, int b) {
+  return sumaDivisores(a) == b && sumaDivisores(b) == a;
+}
+
+void setup() {
+  Serial.begin(9600); // Inicializa comunicacion serial
+  while (!Serial) {
+    ; // Espera a que la conexion Serial se establezca
+  }
+
+  // Mensaje de bienvenida e instrucciones
+  Serial.println("Ingrese un numero entero mayor a 1 para hallar la suma de numeros amigables menores o iguales a ese numero:");
+}
+
+void loop() {
+  static bool procesado = false; // Evita que se procese multiples veces
+
+  if (Serial.available() > 0 && !procesado) {
+    int limite = Serial.parseInt(); // Lee el numero ingresado por el usuario
+
+    if (limite <= 1) {
+      Serial.println("Debe ingresar un numero mayor a 1.");
+      procesado = true;
+      return;
+    }
+
+    int sumaTotal = 0; // Variable para almacenar la suma total de numeros amigables
+
+    for (int a = 2; a <= limite; a++) {
+      int b = sumaDivisores(a);
+      // Verificamos si a y b son amigables, diferentes, y que a < b para no contar pares duplicados
+      if (b != a && b <= limite && a < b && sonAmigables(a, b)) {
+        sumaTotal += a + b; // Sumar ambos numeros del par amigable
+      }
+    }
+
+    Serial.print("El resultado de la suma es: ");
+    Serial.println(sumaTotal);
+
+    procesado = true; // Marca como procesado para que no se repita
+  }
+}
+
+//Problema 18
+#include <iostream>
+using namespace std;
+
+// Función para calcular el factorial de un número
+int factorial(int n);
+
+int main() {
+
+    char entrada[20];  // Para almacenar la entrada como texto
+    int n = 0;
+    cout << "Ingresa el valor de n: ";
+    cin >> entrada;
+
+    // Verificar que todos los caracteres sean dígitos
+    int i = 0;
+    while (entrada[i] != '\0') {
+        if (entrada[i] < '0' || entrada[i] > '9') {
+            cout << "Error: Solo se permiten caracteres numéricos." << endl;
+            return 1;
+        }
+        i++;
+    }
+
+    // Convertir la cadena a número entero
+    i = 0;
+    while (entrada[i] != '\0') {
+        n = n * 10 + (entrada[i] - '0');
+        i++;
+    }
+
+    // Arreglo con los dígitos disponibles
+    char digitos[10] = {'0','1','2','3','4','5','6','7','8','9'};
+
+    // Arreglo booleano para marcar qué dígitos ya se han usado en la permutación
+    bool usado[10] = {false};
+
+    // Arreglo donde se almacenará el resultado (la permutación)
+    char resultado[11]; // 10 caracteres para los dígitos + 1 para el carácter nulo '\0'
+    resultado[10] = '\0'; // Fin de cadena para que sea imprimible como string
+
+    // Se reduce en 1 porque las permutaciones están indexadas desde 0
+    // (la permutación 1 es en realidad la de índice 0)
+    n--;
+
+    // Se generan los 10 dígitos de la permutación
+    for (int i = 0; i < 10; i++) {
+        // Se calcula el número de permutaciones posibles con los dígitos restantes
+        int f = factorial(9 - i); // Ejemplo: si quedan 9 elementos, hay 9! formas de ordenarlos
+
+        // Se determina cuál dígito colocar en la posición i dividiendo entre factorial
+        int indice = n / f; // Esto nos da cuántos bloques de f caben antes de llegar a n
+        n = n % f;          // Se actualiza n con el residuo (dentro del bloque actual)
+
+        // Buscar el 'indice'-ésimo dígito disponible (no usado aún)
+        int cuenta = -1;
+        for (int j = 0; j < 10; j++) {
+            if (!usado[j]) {
+                cuenta++; // Solo se cuenta si el dígito no ha sido usado
+                if (cuenta == indice) {
+                    resultado[i] = digitos[j]; // Colocar el dígito en la posición i
+                    usado[j] = true;           // Marcar como usado
+                    break;
+                }
+            }
+        }
+    }
+
+    // Mostrar la permutación resultante
+    // Se suma nuevamente 1 a n porque anteriormente se le había restado
+    cout << "La permutacion numero " << entrada << " es: " << resultado << endl;
+    return 0;
+}
+
+// Función que calcula el factorial de un número de forma iterativa
+int factorial(int n) {
+    int resultado = 1;
+    for (int i = 2; i <= n; i++) {
+        resultado *= i;
+    }
+    return resultado;
+}
+
+
