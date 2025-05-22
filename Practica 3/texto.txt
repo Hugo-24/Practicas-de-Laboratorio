@@ -1,0 +1,3 @@
+AbCd1234!
+Esto es una línea de prueba.
+¿Funciona el codificador? 

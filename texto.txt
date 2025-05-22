@@ -1,0 +1,5 @@
+AbCd1234!
+Esto es una línea de prueba.
+¿Funciona el codificador? 
+Semilla (numero de bits por bloque): 2
+Metodo de decodificacion (1 o 2): 1
