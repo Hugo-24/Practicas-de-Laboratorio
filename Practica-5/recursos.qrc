@@ -1,0 +1,16 @@
+<RCC>
+  <qresource prefix="/">
+    <file>Sprites/laberinto.txt</file>
+    <file>Sprites/laberinto_recortado.png</file>
+    <file>Sprites/pacman_cerrado.png</file>
+    <file>Sprites/pacman_abierto.png</file>
+    <file>Sprites/pacman_idle.png</file>
+    <file>Sprites/fantasma.png</file>
+    <file>Sprites/fantasma2.png</file>
+    <file>Sonidos/comer.mp3</file>
+    <file>Sonidos/inicio.mp3</file>
+    <file>Sonidos/muerte.mp3</file>
+    <file>Sonidos/poder.mp3</file>
+    <file>Sonidos/fantasma.mp3</file>
+  </qresource>
+</RCC>
